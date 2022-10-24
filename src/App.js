@@ -1,24 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import TodoForm from "./components/TodoForm";
+import Todos from "./components/Todos";
+import Card from "./UI/Card";
+
+const dummy_todos = [
+  { text: "Make breakfast" },
+  { text: "Sleep" },
+  { text: "Go to school" },
+  { text: "Watch movie" },
+];
 
 function App() {
+  const [todos, setTodos] = useState(dummy_todos);
+
+  const onAddTodos = (newTodo) => {
+    setTodos((prevTodos) => {
+      return [newTodo, ...prevTodos];
+    });
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Card>
+      <h1>ToDo App</h1>
+      <TodoForm onAddTodos={onAddTodos} />
+      <Todos todos={todos} />
+    </Card>
   );
 }
 
